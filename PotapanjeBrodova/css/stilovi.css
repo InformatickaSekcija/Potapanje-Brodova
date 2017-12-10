@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+body{
+   text-align: center;
+}
+h1{
+    color: blue;
+    font-size: 30px;
+    text-align: center;
+}
+.main{
+    width: 90%;
+    border:solid 1px;
+}
+table{
+    border:solid black 1px;
+}
+table td{
+    font-weight: bold;
+    text-align: center;
+    vertical-align: center;
+    width: 100px;
+    height:100px;
+    background: white;
+    border:solid black 1px;
+}
+.dodaj{
+    float:none;
+    margin:auto;
+}

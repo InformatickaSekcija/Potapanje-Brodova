@@ -4,16 +4,6 @@ var brodovi = [];
 var maxPoteza = 1000;
 var pogodaka=-1;
 
-// function klik(){
-//     var e=document.getElementById(11);
-//
-//         e.style.backgroundColor = "red";
-//
-//
-//
-//     potez++;
-//
-// }
 
 function Klik(e)
 {

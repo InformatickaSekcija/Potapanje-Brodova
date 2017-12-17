@@ -55,13 +55,15 @@ function ucitajTabelu() {
     function makeShips(s,v){
     var rand;
     while(Math.round(s*v/3)>brodovi.length){
-        rand=Math.floor(Math.random() *s*v)+1;
+        rand=Math.floor(Math.random() * s * v)+1;
         if (brodovi.indexOf(rand)==-1){
             brodovi.push(rand);
         }
     }
 
     }
+
+
     function makeTableHTML(s,v) {
         var result = "<table border=1>";
         var id=0;

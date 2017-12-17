@@ -1,0 +1,22 @@
+.header {
+    text-align: center;
+    margin-top: 50px;
+}
+.igra{
+    float: left;
+    width: 70%;
+    min-height: 650px;
+    max-height: 650px;
+    border: 1px solid black;
+}
+.podesavanja{
+    border: 1px solid black;
+    width: 29%;
+    float: right;
+    min-height: 650px;
+    max-height: 650px;
+}
+.podesavanja-header{
+    text-align: center;
+    margin-top: 30px;
+}

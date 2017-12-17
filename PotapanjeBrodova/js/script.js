@@ -44,26 +44,26 @@ function Klik(e)
     }
 }
 
-    //funkcija kojom generišemo tabelu
-    function ucitajTabelu() {
-        var sirina= prompt("Molim Vas unesite sirinu tabele u poljima", "10");
-        var visina= prompt("Molim Vas unesite visinu tabele u poljima", "10");
-        var div = document.getElementsByClassName('main');
-        div.innerHTML += makeTableHTML(sirina,visina);
-    }
+//funkcija kojom generišemo tabelu
+function ucitajTabelu() {
+    var sirina= prompt("Molim Vas unesite sirinu tabele u poljima", "10");
+    var visina= prompt("Molim Vas unesite visinu tabele u poljima", "10");
+    var div = document.getElementsByClassName('main');
+    div.innerHTML += makeTableHTML(sirina,visina);
+}
 
-    //funkcija koja generise brodove, ubacuje ih u niz
     function makeShips(s,v){
     var rand;
     while(Math.round(s*v/3)>brodovi.length){
-        rand=Math.floor(Math.random() *s*v)+1;
+        rand=Math.floor(Math.random() * s * v)+1;
         if (brodovi.indexOf(rand)==-1){
             brodovi.push(rand);
         }
     }
+
     }
 
-    //funkcija...
+
     function makeTableHTML(s,v) {
         var result = "<table border=1>";
         var id=0;

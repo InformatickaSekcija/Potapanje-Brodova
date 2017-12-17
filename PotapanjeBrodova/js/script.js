@@ -54,10 +54,10 @@ function Klik(e)
     }
 }
 
-
+//funkcija kojom generišemo tabelu
 function ucitajTabelu() {
-    var sirina= prompt("Molim Vas unesite sirinu tabele u poljima", "5");
-    var visina= prompt("Molim Vas unesite visinu tabele u poljima", "5");
+    var sirina= prompt("Molim Vas unesite sirinu tabele u poljima", "10");
+    var visina= prompt("Molim Vas unesite visinu tabele u poljima", "10");
     var div = document.getElementsByClassName('main');
     div.innerHTML += makeTableHTML(sirina,visina);
 }

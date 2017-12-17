@@ -4,6 +4,7 @@ var brodovi = [];
 var maxPoteza = 1000;
 var pogodaka=-1;
 
+
 function Klik(e)
 {
     if ((maxPoteza>potez)&&(brodovi.length != pogodaka)){

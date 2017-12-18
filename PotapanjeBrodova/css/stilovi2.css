@@ -1,6 +1,7 @@
 .header {
     text-align: center;
     margin-top: 50px;
+    margin-bottom: 50px;
 }
 .igra{
     float: left;
@@ -9,6 +10,7 @@
     max-height: 650px;
     border: 1px solid black;
     padding: 0;
+    max-width: 70%;
 }
 .podesavanja{
     border: 1px solid black;
@@ -20,4 +22,7 @@
 .podesavanja-header{
     text-align: center;
     margin-top: 30px;
+}
+.oboji:hover{
+    text-decoration: none;
 }

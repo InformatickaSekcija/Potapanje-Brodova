@@ -31,7 +31,8 @@ function Klik(e)
             if (brodovi.length==pogodaka){
                 alert('Pobeda!');
             };
-        } else if (((e.target.id).length>0)&&(e.target.style.backgroundColor != "blue") && (e.target.style.backgroundColor != "red")){
+        }
+        else if (((e.target.id).length>0)&&(e.target.style.backgroundColor != "blue") && (e.target.style.backgroundColor != "red")){
             e.target.style.backgroundColor = "blue";
             potez++;
             var Doc = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.childNodes[7];

@@ -18,6 +18,7 @@ function Klik(e)
 
             // makeShips(sirina, visina);
             ubaci3ku(brodovi,sirina,visina);
+            ubaci3ku(brodovi,sirina,visina);
             maxPoteza = Math.round(sirina * visina / 2) + 100;
             div.childNodes[5].innerHTML = 'Maksimalan broj poteza ' + maxPoteza;
             potez = 0;
@@ -119,7 +120,7 @@ function ucitajTabelu() {
                 alert('ubaceno desno i levo');
             }
             else {
-                if (((pozicija + v < s * v) && (niz.indexOf(rand + v) == -1)) && ((rand - v >= 0) &&
+                if (((rand + v < s * v) && (niz.indexOf(rand + v) == -1)) && ((rand - v >= 0) &&
                         (niz.indexOf(rand + v) == -1))) {
                     niz.push(rand);
                     niz.push(rand + v);

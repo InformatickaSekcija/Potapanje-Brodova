@@ -15,10 +15,11 @@ function Klik(e)
             var div = e.target.parentNode;
 
             div.childNodes[3].innerHTML = makeTableHTML(sirina, visina);
-
-            // makeShips(sirina, visina);
+            //za testiranje ubacujem dve trojke i dve dvojke
             ubaci3ku(brodovi,sirina,visina);
             ubaci3ku(brodovi,sirina,visina);
+            ubaci2ku(brodovi,sirina,visina);
+            ubaci2ku(brodovi,sirina,visina);
             maxPoteza = Math.round(sirina * visina / 2) + 100;
             div.childNodes[5].innerHTML = 'Maksimalan broj poteza ' + maxPoteza;
             potez = 0;
@@ -90,7 +91,7 @@ function ucitajTabelu() {
 
         while (rand == undefined) {
             rand = Math.floor(Math.random() * s * v) + 1;
-            alert('Pokusaj da se ubaci brod da poziciju:'+rand);
+            alert('Pokusaj da se ubaci brod velicine 2 na poziciju:'+rand);
             if (brodovi.indexOf(rand)==-1){
                 brodovi.push(rand);
                 while (ubaceno == undefined) {
@@ -109,7 +110,10 @@ function ucitajTabelu() {
 
         rand = Math.floor(Math.random() * s * v) + 1;
         alert('Pokusaj da se ubaci brod vecini 3 sa centrom na:' + rand);
-        smer = Math.floor(Math.random() * 2) + 1;
+
+        if (niz.indexOf(rand)==-1){//da li moze da se ubaci centra broda?
+            smer = Math.floor(Math.random() * 2) + 1;
+
         if (smer = 1) {
             if (((Math.floor((rand + 1) / v) == Math.floor(rand / v)) && (niz.indexOf((rand + 1)) == -1)) &&
                 ((Math.floor((rand - 1) / v) == Math.floor(rand / v)) && (niz.indexOf(rand + v) == -1))) {
@@ -129,6 +133,7 @@ function ucitajTabelu() {
                     alert('ubaceno gore i dole');
                 }
             }
+        }
         }
         }
         return ubaceno;

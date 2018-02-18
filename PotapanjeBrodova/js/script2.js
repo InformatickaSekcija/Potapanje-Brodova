@@ -21,7 +21,7 @@ $(document).ready(function () {
        else {
            makeTable(); // for petlja za pravljenje tabele
            for (i=0; i < $('.field').length; i++){
-               $('.field')[i].append(i)                //For petlja za dodavanje broja svakom polju
+               $('.field')[i].append(i+1)                //For petlja za dodavanje broja svakom polju
            }
        }
        function makeTable () {

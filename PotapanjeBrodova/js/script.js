@@ -18,6 +18,8 @@ function Klik(e)
 
             // makeShips(sirina, visina);
             ubaci2ku(brodovi,sirina,visina);
+            ubaci2ku(brodovi,sirina,visina);
+            ubaci2ku(brodovi,sirina,visina);
             maxPoteza = Math.round(sirina * visina / 2) + 100;
             div.childNodes[5].innerHTML = 'Maksimalan broj poteza ' + maxPoteza;
             potez = 0;
@@ -93,7 +95,11 @@ function ucitajTabelu() {
         }
         alert(rand+' '+ubaceno);
     }
-//ubaci pored zadate pozicije, dodaje na poziciju pored u zavisnosti od izvucenog slucajnoh broja,
+
+    function ubaci3ku(niz,s,v){
+
+    }
+//ubaci pored zadate pozicije, dodaje na poziciju pored u zavisnosti od izvucenog slucajnog broja,
 //dodati da proverava da li je nešto ubačeno i ako nije da ponavlja dok ne ubaci
         function ubaciPored(pozicija,s,v,niz){
             var rand2=Math.floor(Math.random()*4)+1;
@@ -114,6 +120,9 @@ function ucitajTabelu() {
                 case 4:if((pozicija-v>=0)&&(niz.indexOf(pozicija+v) == -1)){
                     niz.push(pozicija-v);
                     return 4;//ubaci gore
+                }
+                default :{
+                    return ubaciPored(pozicija,s,v,niz);
                 }
             }
         }

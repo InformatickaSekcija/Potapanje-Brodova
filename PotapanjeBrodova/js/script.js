@@ -17,9 +17,7 @@ function Klik(e)
             div.childNodes[3].innerHTML = makeTableHTML(sirina, visina);
 
             // makeShips(sirina, visina);
-            ubaci2ku(brodovi,sirina,visina);
-            ubaci2ku(brodovi,sirina,visina);
-            ubaci2ku(brodovi,sirina,visina);
+            ubaci3ku(brodovi,sirina,visina);
             maxPoteza = Math.round(sirina * visina / 2) + 100;
             div.childNodes[5].innerHTML = 'Maksimalan broj poteza ' + maxPoteza;
             potez = 0;
@@ -84,26 +82,61 @@ function ucitajTabelu() {
         result += "</table>";
         return result;
     }
-//ubacuje dvojku, dodati proveru za rand da li već postoji brod na toj poziciji
+//ubacuje brod velicine dva
     function ubaci2ku(niz,s,v) {
-        var rand,rand2,rez;
+        var rand;
         var ubaceno;
-        rand=Math.floor(Math.random() * s * v)+1;
-        niz.push(rand);
-        while (ubaceno == undefined) {
-            ubaceno=ubaciPored(rand,s,v,niz);
+
+        while (rand == undefined) {
+            rand = Math.floor(Math.random() * s * v) + 1;
+            alert('Pokusaj da se ubaci brod da poziciju:'+rand);
+            if (brodovi.indexOf(rand)==-1){
+                brodovi.push(rand);
+                while (ubaceno == undefined) {
+                    ubaceno = ubaciPored(rand, s, v, niz);
+                }
+            }else rand= undefined;
+
+
         }
-        alert(rand+' '+ubaceno);
     }
+    //ubacuje brod velicine tri
+    function ubaci3ku(niz,s,v) {
+        var rand, ubaceno = 0;
+        var smer;
+        while (ubaceno == 0) {
 
-    function ubaci3ku(niz,s,v){
+        rand = Math.floor(Math.random() * s * v) + 1;
+        alert('Pokusaj da se ubaci brod vecini 3 sa centrom na:' + rand);
+        smer = Math.floor(Math.random() * 2) + 1;
+        if (smer = 1) {
+            if (((Math.floor((rand + 1) / v) == Math.floor(rand / v)) && (niz.indexOf((rand + 1)) == -1)) &&
+                ((Math.floor((rand - 1) / v) == Math.floor(rand / v)) && (niz.indexOf(rand + v) == -1))) {
+                niz.push(rand);
+                niz.push(rand + 1);
+                niz.push(rand - 1);
+                ubaceno = 1;//ubaci desno i levo
+                alert('ubaceno desno i levo');
+            }
+            else {
+                if (((pozicija + v < s * v) && (niz.indexOf(rand + v) == -1)) && ((rand - v >= 0) &&
+                        (niz.indexOf(rand + v) == -1))) {
+                    niz.push(rand);
+                    niz.push(rand + v);
+                    niz.push(rand - v);
+                    ubaceno = 2;//ubaci gore i dole
+                    alert('ubaceno gore i dole');
+                }
+            }
+        }
+        }
+        return ubaceno;
 
     }
-//ubaci pored zadate pozicije, dodaje na poziciju pored u zavisnosti od izvucenog slucajnog broja,
-//dodati da proverava da li je nešto ubačeno i ako nije da ponavlja dok ne ubaci
+//ubaci pored zadate pozicije, dodaje na poziciju pored u zavisnosti od izvucenog slucajnog broja
         function ubaciPored(pozicija,s,v,niz){
             var rand2=Math.floor(Math.random()*4)+1;
-            alert(rand2);
+            alert('Pokusaj da se ubaci brodu na poziciju:'+pozicija+' doda brod sa strane'+rand2);
             switch(rand2){
                 case 1:if((Math.floor((pozicija+1)/v)==Math.floor(pozicija/v))&&(niz.indexOf((pozicija+1)) == -1)){
                     niz.push((pozicija+1));

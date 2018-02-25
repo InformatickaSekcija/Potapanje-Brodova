@@ -16,11 +16,12 @@ function Klik(e)
 
             div.childNodes[3].innerHTML = makeTableHTML(sirina, visina);
             //za testiranje ubacujem dve trojke i dve dvojke
-            ubaci3ku(brodovi,sirina,visina);
-            ubaci3ku(brodovi,sirina,visina);
-            ubaci2ku(brodovi,sirina,visina);
-            ubaci2ku(brodovi,sirina,visina);
-            maxPoteza = Math.round(sirina * visina / 2) + 100;
+            ubaci4ku(brodovi,sirina,visina);
+            // ubaci3ku(brodovi,sirina,visina);
+            // ubaci3ku(brodovi,sirina,visina);
+            // ubaci2ku(brodovi,sirina,visina);
+            // ubaci2ku(brodovi,sirina,visina);
+             maxPoteza = Math.round(sirina * visina / 2) + 100;
             div.childNodes[5].innerHTML = 'Maksimalan broj poteza ' + maxPoteza;
             potez = 0;
             div.childNodes[7].innerHTML = 'Trenutni potez ' + potez;
@@ -73,9 +74,9 @@ function ucitajTabelu() {
     function makeTableHTML(s,v) {
         var result = "<table border=1>";
         var id=-1;
-        for(var i=1; i<=s; i++) {
+        for(var i=1; i<=v; i++) {
             result += "<tr>";
-            for(var j=1; j<=v; j++){
+            for(var j=1; j<=s; j++){
                 id=id+1;
                 result += "<td id="+id+">"+id+"</td>";
             }
@@ -83,6 +84,32 @@ function ucitajTabelu() {
         }
         result += "</table>";
         return result;
+    }
+        //trenutno radi samo nadesno, uradi nalevo, gore i dole
+    function ubaci4ku(niz,s,v){
+    //bira nasumicno prazno polje
+        //pokusava da doda na to polje sa desne, donje, leve i gornje strane
+        //ako uspe u bilo kom smeru ubacuje sve elemente niza
+        //ako ne uspe izvlaci novo prazno polje
+        var rand;
+        var ubacen=false;
+        do{
+            rand = Math.floor(Math.random()*s*v)+1;
+            alert('Pokusaj da se ubaci brod velicine 4 nadesno na poziciju:'+rand);
+            if (brodovi.indexOf(rand)==-1){//ako nema na tom polju brod pokusaj da ubacis
+               if ((Math.floor((rand + 3) / s) == Math.floor(rand / s))){//da li je u istom redu desno 3 moguce
+                   if ((niz.indexOf((rand)) == -1) &&(niz.indexOf((rand+1)) == -1)&&(niz.indexOf((rand+2)) == -1)
+                   &&(niz.indexOf((rand+3)) == -1)) {
+                       brodovi.push(rand);
+                       brodovi.push(rand+1);
+                       brodovi.push(rand+2);
+                       brodovi.push(rand+3);
+                       ubacen=true;
+                   }
+               }
+            }
+
+        }while (ubacen==false);
     }
 //ubacuje brod velicine dva
     function ubaci2ku(niz,s,v) {
@@ -115,8 +142,8 @@ function ucitajTabelu() {
             smer = Math.floor(Math.random() * 2) + 1;
 
         if (smer = 1) {
-            if (((Math.floor((rand + 1) / v) == Math.floor(rand / v)) && (niz.indexOf((rand + 1)) == -1)) &&
-                ((Math.floor((rand - 1) / v) == Math.floor(rand / v)) && (niz.indexOf(rand + v) == -1))) {
+            if (((Math.floor((rand + 1) / s) == Math.floor(rand / s)) && (niz.indexOf((rand + 1)) == -1)) &&
+                ((Math.floor((rand - 1) / s) == Math.floor(rand / s)) && (niz.indexOf(rand + s) == -1))) {
                 niz.push(rand);
                 niz.push(rand + 1);
                 niz.push(rand - 1);
@@ -124,11 +151,11 @@ function ucitajTabelu() {
                 alert('ubaceno desno i levo');
             }
             else {
-                if (((rand + v < s * v) && (niz.indexOf(rand + v) == -1)) && ((rand - v >= 0) &&
-                        (niz.indexOf(rand + v) == -1))) {
+                if (((rand + v < s * v) && (niz.indexOf(rand + s) == -1)) && ((rand - s >= 0) &&
+                        (niz.indexOf(rand + s) == -1))) {
                     niz.push(rand);
-                    niz.push(rand + v);
-                    niz.push(rand - v);
+                    niz.push(rand + s);
+                    niz.push(rand - s);
                     ubaceno = 2;//ubaci gore i dole
                     alert('ubaceno gore i dole');
                 }
@@ -144,20 +171,20 @@ function ucitajTabelu() {
             var rand2=Math.floor(Math.random()*4)+1;
             alert('Pokusaj da se ubaci brodu na poziciju:'+pozicija+' doda brod sa strane'+rand2);
             switch(rand2){
-                case 1:if((Math.floor((pozicija+1)/v)==Math.floor(pozicija/v))&&(niz.indexOf((pozicija+1)) == -1)){
+                case 1:if((Math.floor((pozicija+1)/s)==Math.floor(pozicija/s))&&(niz.indexOf((pozicija+1)) == -1)){
                     niz.push((pozicija+1));
                     return 1;//ubaci desno
                 }
-                case 2:if((pozicija+v<s*v)&&(niz.indexOf(pozicija+v) == -1)){
-                    niz.push(pozicija+v);
+                case 2:if((pozicija+s<s*v)&&(niz.indexOf(pozicija+s) == -1)){
+                    niz.push(pozicija+s);
                     return 2;//ubaci dole
                 }
-                case 3:if((Math.floor((pozicija-1)/v)==Math.floor(pozicija/v))&&(niz.indexOf(pozicija+v) == -1)){
+                case 3:if((Math.floor((pozicija-1)/s)==Math.floor(pozicija/s))&&(niz.indexOf(pozicija+s) == -1)){
                     niz.push((pozicija-1));
                     return 3;//ubaci levo
                 }
-                case 4:if((pozicija-v>=0)&&(niz.indexOf(pozicija+v) == -1)){
-                    niz.push(pozicija-v);
+                case 4:if((pozicija-s>=0)&&(niz.indexOf(pozicija+s) == -1)){
+                    niz.push(pozicija-s);
                     return 4;//ubaci gore
                 }
                 default :{

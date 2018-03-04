@@ -17,10 +17,11 @@ function Klik(e)
             div.childNodes[3].innerHTML = makeTableHTML(sirina, visina);
             //za testiranje ubacujem dve trojke i dve dvojke
             ubaci4ku(brodovi,sirina,visina);
-            // ubaci3ku(brodovi,sirina,visina);
-            // ubaci3ku(brodovi,sirina,visina);
-            // ubaci2ku(brodovi,sirina,visina);
-            // ubaci2ku(brodovi,sirina,visina);
+            ubaci3ku(brodovi,sirina,visina);
+            ubaci3ku(brodovi,sirina,visina);
+            ubaci2ku(brodovi,sirina,visina);
+            ubaci2ku(brodovi,sirina,visina);
+            ubaci2ku(brodovi,sirina,visina);
              maxPoteza = Math.round(sirina * visina / 2) + 100;
             div.childNodes[5].innerHTML = 'Maksimalan broj poteza ' + maxPoteza;
             potez = 0;
@@ -85,7 +86,7 @@ function ucitajTabelu() {
         result += "</table>";
         return result;
     }
-        //trenutno radi samo nadesno, uradi nalevo, gore i dole
+        //napraviti da random bira smer a ne redom: desno, dole, gore, levo
     function ubaci4ku(niz,s,v){
     //bira nasumicno prazno polje
         //pokusava da doda na to polje sa desne, donje, leve i gornje strane
@@ -94,9 +95,10 @@ function ucitajTabelu() {
         var rand;
         var ubacen=false;
         do{
-            rand = Math.floor(Math.random()*s*v)+1;
-            alert('Pokusaj da se ubaci brod velicine 4 nadesno na poziciju:'+rand);
+            rand = Math.floor(Math.random()*s*v);
+
             if (brodovi.indexOf(rand)==-1){//ako nema na tom polju brod pokusaj da ubacis
+
                if ((Math.floor((rand + 3) / s) == Math.floor(rand / s))){//da li je u istom redu desno 3 moguce
                    if ((niz.indexOf((rand)) == -1) &&(niz.indexOf((rand+1)) == -1)&&(niz.indexOf((rand+2)) == -1)
                    &&(niz.indexOf((rand+3)) == -1)) {
@@ -105,6 +107,40 @@ function ucitajTabelu() {
                        brodovi.push(rand+2);
                        brodovi.push(rand+3);
                        ubacen=true;
+                       alert('Ubacen brod velicine 4 nadesno na poziciju:'+rand);
+                   }
+               }else if (rand+3*s<s*v){//da li je u istoj koloni 3 dole moguce
+
+                   if ((niz.indexOf((rand)) == -1) &&(niz.indexOf((rand+s)) == -1)&&(niz.indexOf((rand+2*s)) == -1)
+                       &&(niz.indexOf((rand+3*s)) == -1)) {
+                       brodovi.push(rand);
+                       brodovi.push(rand+s);
+                       brodovi.push(rand+2*s);
+                       brodovi.push(rand+3*s);
+                       ubacen=true;
+                       alert('Ubacen brod velicine 4 nadole na poziciju:'+rand);
+                   }
+               }else if (rand-3*s>=0){//da li je u istoj koloni 3 gore moguce
+
+                   if ((niz.indexOf((rand)) == -1) &&(niz.indexOf((rand-s)) == -1)&&(niz.indexOf((rand-2*s)) == -1)
+                       &&(niz.indexOf((rand-3*s)) == -1)) {
+                       brodovi.push(rand);
+                       brodovi.push(rand-s);
+                       brodovi.push(rand-2*s);
+                       brodovi.push(rand-3*s);
+                       ubacen=true;
+                       alert('Ubacen brod velicine 4 nagore na poziciju:'+rand);
+                   }
+               } else if ((Math.floor((rand - 3) / s) == Math.floor(rand / s))) {//da li je u istom redu levo 3 moguce
+
+                   if ((niz.indexOf((rand)) == -1) &&(niz.indexOf((rand-1)) == -1)&&(niz.indexOf((rand-2)) == -1)
+                       &&(niz.indexOf((rand-3)) == -1)) {
+                       brodovi.push(rand);
+                       brodovi.push(rand-1);
+                       brodovi.push(rand-2);
+                       brodovi.push(rand-3);
+                       ubacen=true;
+                       alert('Ubacen brod velicine 4 nalevo na poziciju:'+rand);
                    }
                }
             }
@@ -113,20 +149,49 @@ function ucitajTabelu() {
     }
 //ubacuje brod velicine dva
     function ubaci2ku(niz,s,v) {
-        var rand;
-        var ubaceno;
+        var rand, smer;
+        var ubaceno=0;
 
-        while (rand == undefined) {
-            rand = Math.floor(Math.random() * s * v) + 1;
-            alert('Pokusaj da se ubaci brod velicine 2 na poziciju:'+rand);
-            if (brodovi.indexOf(rand)==-1){
-                brodovi.push(rand);
-                while (ubaceno == undefined) {
-                    ubaceno = ubaciPored(rand, s, v, niz);
+        while (ubaceno == 0) {
+            rand = Math.floor(Math.random() * s * v);
+            if (brodovi.indexOf(rand) == -1) {
+                smer = Math.floor(Math.random() * 4) + 1;
+                switch (smer) {
+                    case 1:
+                        if ((Math.floor((rand + 1) / s) == Math.floor(rand / s)) && (niz.indexOf((rand + 1)) == -1)) {
+                            niz.push(rand);
+                            niz.push(rand + 1);
+                            alert('Ubacen brod velicine 2 ubacen na pozicije:' + rand + ' i ' + (rand + 1));
+                            ubaceno=1;
+                            break;
+                        }
+                    case 2:
+                        if ((rand + s < s * v) && (niz.indexOf(rand + s) == -1)) {
+                            niz.push(rand + s);
+                            niz.push(rand);
+                            alert('Ubacen brod velicine 2 ubacen na pozicije:' + rand + ' i ' + (rand + s));
+                            ubaceno=2;
+                            break;
+                        }
+                    case 3:
+                        if ((Math.floor((rand - 1) / s) == Math.floor(rand / s)) && (niz.indexOf(rand -1) == -1)) {
+                            niz.push((rand - 1));
+                            niz.push(rand);
+                            alert('Ubacen brod velicine 2 ubacen na pozicije:' + rand + ' i ' + (rand - 1));
+                            ubaceno=3;
+                            break;
+                        }
+                    case 4:
+                        if ((rand - s >= 0) && (niz.indexOf(rand + s) == -1)) {
+                            niz.push(rand - s);
+                            niz.push(rand);
+                            alert('Ubacen brod velicine 2 ubacen na pozicije:' + rand + ' i ' + (rand - s));
+                            ubaceno=4;
+                            break;
+                        }
+
                 }
-            }else rand= undefined;
-
-
+            }
         }
     }
     //ubacuje brod velicine tri
@@ -135,8 +200,7 @@ function ucitajTabelu() {
         var smer;
         while (ubaceno == 0) {
 
-        rand = Math.floor(Math.random() * s * v) + 1;
-        alert('Pokusaj da se ubaci brod vecini 3 sa centrom na:' + rand);
+        rand = Math.floor(Math.random() * s * v);
 
         if (niz.indexOf(rand)==-1){//da li moze da se ubaci centra broda?
             smer = Math.floor(Math.random() * 2) + 1;
@@ -148,16 +212,16 @@ function ucitajTabelu() {
                 niz.push(rand + 1);
                 niz.push(rand - 1);
                 ubaceno = 1;//ubaci desno i levo
-                alert('ubaceno desno i levo');
+                alert('ubacena trojka desno i levo sa centrom na:' + rand);
             }
             else {
-                if (((rand + v < s * v) && (niz.indexOf(rand + s) == -1)) && ((rand - s >= 0) &&
+                if (((rand + s < s * v) && (niz.indexOf(rand + s) == -1)) && ((rand - s >= 0) &&
                         (niz.indexOf(rand + s) == -1))) {
                     niz.push(rand);
                     niz.push(rand + s);
                     niz.push(rand - s);
                     ubaceno = 2;//ubaci gore i dole
-                    alert('ubaceno gore i dole');
+                    alert('ubacena trojka gore i dole sa centrom na:'+rand);
                 }
             }
         }

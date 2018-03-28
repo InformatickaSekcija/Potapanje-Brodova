@@ -54,7 +54,7 @@ document.getElementById('podesi').addEventListener('click', function(event){
         alert('Visina i sirina moraju da budu vece od 5.')
     }
     else {
-        for( i = 1; i < visina*sirina; i++){
+        for( i = 1; i < visina*sirina +1; i++){
             var child = document.createElement('div');
             var text = document.createTextNode(i);
             child.appendChild(text);

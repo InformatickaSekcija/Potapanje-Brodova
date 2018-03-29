@@ -43,6 +43,11 @@ document.getElementById('podesi').addEventListener('click', function(event){
     var sirina = document.getElementById('sirina').value;
     var visina = document.getElementById('visina').value;
     var igra = document.getElementById('igra');
+    igra.innerHTML = '';
+    var visinaIgre = igra.clientHeight;
+    var sirinaIgre = igra.clientWidth;
+    var sirinaPolja = sirinaIgre / sirina;
+    var visinaPolja = visinaIgre / visina;
     event.preventDefault();
     if (!visina || !sirina){    //Proveravamo da li su uneti sirina i visina
         alert('Unesite visinu i sirinu!')
@@ -59,8 +64,19 @@ document.getElementById('podesi').addEventListener('click', function(event){
             var text = document.createTextNode(i);
             child.appendChild(text);
             child.setAttribute('class', 'polje');
+            child.style.width = sirinaPolja + 'px';
+            child.style.height = visinaPolja + 'px';
+            child.style.lineHeight = visinaPolja+'px';
             igra.appendChild(child)
+            addEvents()
         }
     }
-})
-
+});
+function addEvents(){
+    var polja = document.getElementsByClassName('polje');
+    for (i=0; i<polja.length; i++){
+        polja[i].addEventListener('click', function(){
+            this.setAttribute('class', 'touched')
+        })
+    }
+}

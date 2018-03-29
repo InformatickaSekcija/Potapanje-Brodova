@@ -11,6 +11,9 @@
     border: 1px solid black;
     padding: 0;
     max-width: 70%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 .podesavanja{
     border: 1px solid black;
@@ -25,4 +28,19 @@
 }
 .oboji:hover{
     text-decoration: none;
+}
+
+#igra .polje {
+    width: auto;
+    height: auto;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid black;
+}
+.touched {
+    background-color: blue;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid black;
 }

@@ -7,8 +7,10 @@ var izbori = [];
 
 //ucitaj tabelu
 document.getElementById('podesi').addEventListener('click', function(event){
-    sirina = parseInt(document.getElementById('sirina').value);
-    visina = parseInt(document.getElementById('visina').value);
+    // sirina = parseInt(document.getElementById('sirina').value);
+    // visina = parseInt(document.getElementById('visina').value);
+    visina = 10;
+    sirina = 10;
     var igra = document.getElementById('igra');
     igra.innerHTML = '';
     var visinaIgre = igra.clientHeight;
@@ -67,7 +69,11 @@ function addSelector(){
         lastClick = null;
     }
     else if(select !== lastClick && izbori.indexOf(select) == -1){
-        if(lastClick != null && !checkPosition(select)){
+        if(!checkPosition(select)){
+            alert('found')
+        }
+        else if(lastClick != null && !checkPosition(select)){
+            alert(lastClick)
             if(checkPosition(lastClick)){
                 document.getElementById(lastClick).style.backgroundColor = '#fff';
             }
@@ -75,9 +81,14 @@ function addSelector(){
                 document.getElementById(izbori[i]).style.backgroundColor = '#fff';
             }
         }
-        if(checkPosition(select)){
+        else if(checkPosition(select)){
+            if(lastClick != null && checkPosition(lastClick)){
+                document.getElementById(lastClick).style.backgroundColor = '#fff';
+            }
+            for (i = 0; i< izbori.length; i++){
+                document.getElementById(izbori[i]).style.backgroundColor = '#fff'
+            }
             izbori = [];
-            alert('hey ho');
             document.getElementById(select).style.backgroundColor = 'blue';
             if(select+sirina <= sirina*visina){
                 if(checkPosition(select+sirina)){
@@ -103,9 +114,6 @@ function addSelector(){
                     document.getElementById(select-1).style.backgroundColor = 'yellow';
                 }
             }
-        }
-        else if(!checkPosition(select)){
-            alert('found')
         }
     }
     else if(lastClick == select) {

@@ -64,6 +64,7 @@ function addSelector(){
             ]
         });
         document.getElementById(select).style.backgroundColor = 'blue';
+        console.log(brodovi)
         izbori=[];
         select= null;
         lastClick = null;
@@ -71,6 +72,7 @@ function addSelector(){
     else if(select !== lastClick && izbori.indexOf(select) == -1){
         if(!checkPosition(select)){
             alert('found')
+            select = lastClick;
         }
         else if(lastClick != null && !checkPosition(select)){
             alert(lastClick)

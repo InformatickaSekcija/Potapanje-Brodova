@@ -1,47 +1,14 @@
-// $(document).ready(function () {
-//    $('.podesi').click(function () {
-//        var igra = $('.igra');
-//        var visina = parseInt($('.visina').val());
-//        var sirina = parseInt($('.sirina').val());
-//        var sir = parseInt($('.igra').width());
-//        var vis = parseInt($('.igra').height());
-//        var Width = sir/sirina;
-//        var Height = vis/visina-1;
-//        var widthRe = Width;
-//        igra.empty(); // praznimo vec kreirana polja pre ponovnog definisanja
-//        if (!visina || !sirina){    //Proveravamo da li su uneti sirina i visina
-//            alert('Unesite visinu i sirinu!')
-//        }
-//        if(visina > 20 || sirina > 20 ){    //Proveravamo unete vrednosti, ako su vece od 20, alert NO!
-//            alert('Visina i sirina moraju da budu maximalno 20.');
-//        }
-//        else if(visina < 5 || sirina < 5){     //Proveravamo unete vrednosti, ako su manje od 5, alert NO!
-//            alert('Visina i sirina moraju da budu vece od 5.')
-//        }
-//        else {
-//            makeTable(); // for petlja za pravljenje tabele
-//            for (i=0; i < $('.field').length; i++){
-//                $('.field')[i].append(i+1)                //For petlja za dodavanje broja svakom polju
-//            }
-//        }
-//        function makeTable () {
-//            for (i = 1; i <= sirina; i++) {
-//                igra.append('<div class="colum num' + i + '" style="width:' + Width + 'px;max-width:' + Width + 'px;float: left; display: inline-block; height: 648px;"></div>');
-//                for (j = 0; j < visina; j++) {
-//                    $('.num' + i).append('<a href="#" class="oboji"><div class="field numb' + i + j + '" style="width:' + widthRe + 'px;max-width:' + widthRe + 'px; height:' + Height + 'px; margin: 1px; border: 1px solid black; text-align: center; vertical-align: middle; display: table"></div></a>');
-//                }
-//            }
-//        }
-//    });
-//    $(document).on('click', '.oboji', function () {
-//        $(this).children('.field').css('background-color','blue');
-//    })
-// });
+var brodovi = [
+
+];
+var visina;
+var sirina;
+var selectovanoPolje = null;
 
 
 document.getElementById('podesi').addEventListener('click', function(event){
-    var sirina = document.getElementById('sirina').value;
-    var visina = document.getElementById('visina').value;
+    sirina = parseInt(document.getElementById('sirina').value);
+    visina = parseInt(document.getElementById('visina').value);
     var igra = document.getElementById('igra');
     igra.innerHTML = '';
     var visinaIgre = igra.clientHeight;
@@ -64,19 +31,120 @@ document.getElementById('podesi').addEventListener('click', function(event){
             var text = document.createTextNode(i);
             child.appendChild(text);
             child.setAttribute('class', 'polje');
+            child.setAttribute('id', i)
             child.style.width = sirinaPolja + 'px';
             child.style.height = visinaPolja + 'px';
             child.style.lineHeight = visinaPolja+'px';
+            child.addEventListener('click', addEvents)
             igra.appendChild(child)
-            addEvents()
         }
     }
 });
 function addEvents(){
-    var polja = document.getElementsByClassName('polje');
-    for (i=0; i<polja.length; i++){
-        polja[i].addEventListener('click', function(){
-            this.setAttribute('class', 'touched')
-        })
+    if(selectovanoPolje != null){
+        document.getElementById(selectovanoPolje).style.backgroundColor = '#fff';
+        if(Math.ceil((selectovanoPolje+1)/sirina) == Math.ceil(selectovanoPolje/sirina)){
+            document.getElementById(selectovanoPolje+1).style.background = '#fff';
+        }
+        if(Math.ceil((selectovanoPolje-1)/sirina) == Math.ceil(selectovanoPolje/sirina)){
+            document.getElementById(selectovanoPolje-1).style.background = '#fff';
+        }
+        if(selectovanoPolje+sirina <= visina*sirina){
+            document.getElementById(selectovanoPolje+sirina).style.background = '#fff';
+        }
+        if(selectovanoPolje-sirina > 0){
+            document.getElementById(selectovanoPolje-sirina).style.background = '#fff';
+        }
+        document.getElementById(selectovanoPolje).classList.remove('touched');
+        document.getElementById(selectovanoPolje).classList.add('polje')
     }
+    selectovanoPolje = parseInt(this.id)
+    console.log(this.id)
+    document.getElementById(this.id).classList.add('touched')
+    document.getElementById(this.id).style.backgroundColor = 'blue';
+    dodaj2();
+}
+
+function dodaj2(){
+    var zauzeto = false;
+    if(brodovi.indexOf(selectovanoPolje) == -1){
+        if( (selectovanoPolje - sirina) >0){
+            if(brodovi.indexOf(selectovanoPolje - sirina) == -1){
+                var highlight = document.getElementById(selectovanoPolje-sirina);
+                highlight.style.backgroundColor = '#ffe066';
+                highlight.removeEventListener('click', addEvents)
+                highlight.addEventListener('click', function(){
+                    dodaj2f(parseInt(this.id))
+                })
+        }
+        }
+        if ( (selectovanoPolje + sirina) <= visina*sirina ) {
+            if (brodovi.indexOf(selectovanoPolje+sirina) == -1){
+                var highlight = document.getElementById(selectovanoPolje+sirina);
+                highlight.style.backgroundColor = '#ffe066';
+                highlight.removeEventListener('click', addEvents)
+                highlight.addEventListener('click', function(){
+                    dodaj2f(parseInt(this.id))
+                })
+            }
+        }
+        if ( Math.ceil((selectovanoPolje-1)/sirina) == Math.ceil(selectovanoPolje/sirina) ){
+            if (brodovi.indexOf(selectovanoPolje-1) == -1){
+                var highlight = document.getElementById(selectovanoPolje-1);
+                highlight.style.backgroundColor = '#ffe066';
+                highlight.removeEventListener('click', addEvents)
+                highlight.addEventListener('click', function(){
+                    dodaj2f(parseInt(this.id))
+                })
+            }
+        }
+        if( Math.ceil((selectovanoPolje +1)/sirina) == Math.ceil(selectovanoPolje/sirina) ){
+            if (brodovi.indexOf(selectovanoPolje +1) == -1){
+                var highlight = document.getElementById(selectovanoPolje+1);
+                highlight.style.backgroundColor = '#ffe066';
+                highlight.removeEventListener('click', addEvents)
+                highlight.addEventListener('click', function(){
+                    dodaj2f(parseInt(this.id))
+                })
+            }
+        }
+    }else {
+        console.log('sorry this spot is taken');
+    }
+};
+
+
+function dodaj2f(passed){
+
+    brodovi.push({
+        pozicije: [
+            selectovanoPolje,
+            passed
+        ]
+    });
+    console.log(brodovi)
+    if(Math.ceil((selectovanoPolje+1)/sirina) == Math.ceil(selectovanoPolje/sirina)){
+        document.getElementById(selectovanoPolje+1).style.background = '#fff';
+        document.getElementById(selectovanoPolje+1).removeEventListener('click', function(){dodaj2f});
+        document.getElementById(selectovanoPolje+1).addEventListener('click', addEvents)
+    }
+    if(Math.ceil((selectovanoPolje-1)/sirina) == Math.ceil(selectovanoPolje/sirina)){
+        document.getElementById(selectovanoPolje-1).style.background = '#fff';
+        document.getElementById(selectovanoPolje-1).removeEventListener('click', function(){dodaj2f});
+        document.getElementById(selectovanoPolje-1).addEventListener('click', addEvents)
+    }
+    if(selectovanoPolje+sirina <= visina*sirina){
+        document.getElementById(selectovanoPolje+sirina).style.background = '#fff';
+        document.getElementById(selectovanoPolje+sirina).removeEventListener('click',function(){dodaj2f});
+        document.getElementById(selectovanoPolje+sirina).addEventListener('click', addEvents)
+    }
+    if(selectovanoPolje-sirina > 0){
+        document.getElementById(selectovanoPolje-sirina).style.background = '#fff';
+        document.getElementById(selectovanoPolje-sirina).removeEventListener('click', function(){dodaj2f});
+        document.getElementById(selectovanoPolje-sirina).addEventListener('click', addEvents)
+    }
+    document.getElementById(selectovanoPolje).classList.remove('touched');
+    document.getElementById(selectovanoPolje).classList.add('polje')
+    selectovanoPolje = null;
+    document.getElementById(passed).style.backgroundColor= 'blue';
 }

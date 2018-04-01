@@ -7,7 +7,9 @@ var pogodaka=-1;
 
 function Klik(e)
 {
+    console.log(brodovi)
     if ((maxPoteza>potez)&&(brodovi.length != pogodaka)){
+
         if (e.target.className = "dodaj" && dodato == false) {
             //unos sirine i visine, minimum je 5
             var sirina = Math.max(parseInt(prompt("Molim Vas unesite sirinu tabele u poljima", "5")), 5);
@@ -68,7 +70,6 @@ function ucitajTabelu() {
             brodovi.push(rand);
         }
     }
-
     }
 
 

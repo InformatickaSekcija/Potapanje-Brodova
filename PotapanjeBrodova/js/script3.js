@@ -4,6 +4,7 @@ var sirina;
 var select = null;
 var lastClick = null;
 var izbori = [];
+var izbori2 = [];
 
 //ucitaj tabelu
 document.getElementById('podesi').addEventListener('click', function(event){
@@ -56,6 +57,9 @@ function addSelector(){
                 document.getElementById(izbori[i]).style.backgroundColor = '#fff';
             }
         }
+        for (i=0; i<izbori2.length; i++){
+            document.getElementById(izbori2[i]).style.backgroundColor = '#fff';
+        }
         brodovi.push({
             duzina: 2,
             pozicija: [
@@ -66,6 +70,33 @@ function addSelector(){
         document.getElementById(select).style.backgroundColor = 'blue';
         console.log(brodovi)
         izbori=[];
+        izbori2=[];
+        select= null;
+        lastClick = null;
+    }
+    else if(izbori2.indexOf(select) != -1){
+        for (i=0; i<izbori2.length; i++){
+            if(izbori2[i] != select){
+                document.getElementById(izbori2[i]).style.backgroundColor = '#fff';
+            }
+        }
+        for (i=0; i<izbori.length; i++){
+            document.getElementById(izbori[i]).style.backgroundColor = '#fff';
+        }
+        var middle = (select+lastClick)/2;
+        brodovi.push({
+            duzina: 3,
+            pozicija: [
+                select,
+                middle,
+                lastClick
+            ]
+        });
+        document.getElementById(select).style.backgroundColor = 'blue';
+        document.getElementById(middle).style.backgroundColor = 'blue';
+        console.log(brodovi)
+        izbori=[];
+        izbori2=[];
         select= null;
         lastClick = null;
     }
@@ -97,11 +128,23 @@ function addSelector(){
                     izbori.push(select+sirina);
                     document.getElementById(select+sirina).style.backgroundColor = 'yellow';
                 }
+                if(select+(sirina*2) <= sirina*visina){
+                    if(checkPosition(select+(sirina*2))){
+                        izbori2.push(select+(sirina*2));
+                        document.getElementById(select+(sirina*2)).style.backgroundColor = 'orange';
+                    }
+                }
             }
             if(select-sirina > 0){
                 if(checkPosition(select-sirina)){
                     izbori.push(select-sirina);
                     document.getElementById(select-sirina).style.backgroundColor = 'yellow';
+                }
+                if(select-(sirina*2) > 0){
+                    if(checkPosition(select-(sirina*2))){
+                        izbori2.push(select-(sirina*2));
+                        document.getElementById(select-(sirina*2)).style.backgroundColor = 'orange';
+                    }
                 }
             }
             if(Math.ceil((select+1)/sirina) == Math.ceil(select/sirina)){
@@ -109,11 +152,24 @@ function addSelector(){
                     izbori.push(select+1);
                     document.getElementById(select+1).style.backgroundColor = 'yellow';
                 }
+                if(Math.ceil((select+2)/sirina) == Math.ceil(select/sirina)){
+                    if(checkPosition(select+2)){
+                        izbori2.push(select+2);
+                        document.getElementById(select+2).style.backgroundColor = 'orange';
+                    }
+                }
             }
             if(Math.ceil((select-1)/sirina) == Math.ceil(select/sirina)){
                 if(checkPosition(select-1)){
                     izbori.push(select-1);
                     document.getElementById(select-1).style.backgroundColor = 'yellow';
+                }
+                if(Math.ceil((select-2)/sirina) == Math.ceil(select/sirina)){
+                    if(checkPosition(select-2)){
+                        izbori2.push(select-2);
+                        document.getElementById(select-2).style.backgroundColor = 'orange';
+                    }
+                    
                 }
             }
         }

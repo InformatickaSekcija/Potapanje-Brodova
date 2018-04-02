@@ -29,11 +29,12 @@ document.getElementById('podesi').addEventListener('click', function(event){
         alert('Visina i sirina moraju da budu vece od 5.')
     }
     else {
+        //napravi div za svako polje od 1 do visina*sirna +1
         for( i = 1; i < visina*sirina +1; i++){
-            var child = document.createElement('div');
-            var text = document.createTextNode(i);
-            child.appendChild(text);
-            child.setAttribute('class', 'polje');
+            var child = document.createElement('div'); //kreiramo div
+            var text = document.createTextNode(i); //pravimo ispisanu brojnu vrednost
+            child.appendChild(text); //dodajemo text na div
+            child.setAttribute('class', 'polje'); 
             child.setAttribute('id', i)
             child.style.width = sirinaPolja + 'px';
             child.style.height = visinaPolja + 'px';
@@ -45,11 +46,11 @@ document.getElementById('podesi').addEventListener('click', function(event){
 });
 
 function addSelector(){
-    if(select != null){
+    if(select != null){ //u slucaju da smo selectovali neki element proslim klikom, tu vrednost prebacujemo u lastClick variablu
         lastClick = select;
         select = parseInt(this.id);
     }else {
-        select = parseInt(this.id);
+        select = parseInt(this.id); // ako nismo imali nista selectovano samo definisemo select kao id kliknutog polja
     }
     if(izbori.indexOf(select) != -1){
         for (i=0; i<izbori.length; i++){
@@ -104,6 +105,7 @@ function addSelector(){
         if(!checkPosition(select)){
             alert('found')
             select = lastClick;
+            lastClick = null;
         }
         else if(lastClick != null && !checkPosition(select)){
             alert(lastClick)
@@ -113,15 +115,23 @@ function addSelector(){
             for (i=0; i < izbori.length; i++){
                 document.getElementById(izbori[i]).style.backgroundColor = '#fff';
             }
+            for (i=0; i < izbori2.length; i++){
+                document.getElementById(izbori2[i]).style.backgroundColor = '#fff';
+            }
         }
         else if(checkPosition(select)){
+            alert('click')
             if(lastClick != null && checkPosition(lastClick)){
                 document.getElementById(lastClick).style.backgroundColor = '#fff';
             }
             for (i = 0; i< izbori.length; i++){
                 document.getElementById(izbori[i]).style.backgroundColor = '#fff'
             }
+            for (i = 0; i< izbori2.length; i++){
+                document.getElementById(izbori2[i]).style.backgroundColor = '#fff'
+            }
             izbori = [];
+            izbori2 = [];
             document.getElementById(select).style.backgroundColor = 'blue';
             if(select+sirina <= sirina*visina){
                 if(checkPosition(select+sirina)){

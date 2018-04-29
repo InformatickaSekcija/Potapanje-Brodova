@@ -3,7 +3,10 @@ var dodato=false;
 var brodovi = [];
 var maxPoteza = 1000;
 var pogodaka=-1;
-
+var gadjanja = [];
+var ships = new array(100);
+const width = 10;
+const height = 10;
 
 function Klik(e)
 {
@@ -12,8 +15,10 @@ function Klik(e)
 
         if (e.target.className = "dodaj" && dodato == false) {
             //unos sirine i visine, minimum je 5
-            var sirina = Math.max(parseInt(prompt("Molim Vas unesite sirinu tabele u poljima", "5")), 5);
-            var visina = Math.max(parseInt(prompt("Molim Vas unesite visinu tabele u poljima", "5")), 5);
+            // var sirina = Math.max(parseInt(prompt("Molim Vas unesite sirinu tabele u poljima", "5")), 5);
+            // var visina = Math.max(parseInt(prompt("Molim Vas unesite visinu tabele u poljima", "5")), 5);
+            var sirina=10;
+            var visina=10;
             var div = e.target.parentNode;
 
             div.childNodes[3].innerHTML = makeTableHTML(sirina, visina);

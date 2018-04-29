@@ -1,50 +1,38 @@
-var brodovi = [];
-var visina;
-var sirina;
-var select = null;
-var lastClick = null;
-var izbori = [];
-var izbori2 = [];
+var brodovi = [];//glavni niz
+var visina = 10;
+var sirina = 10;
+var select = null;//trenutno selektovano polje
+var lastClick = null;//prethodno selektovano polje
+var izbori = [];//bliži prsten susednih(4) polja
+var izbori2 = [];//dalji prsten susednih(4) polja
 
 //ucitaj tabelu
 document.getElementById('podesi').addEventListener('click', function(event){
     // sirina = parseInt(document.getElementById('sirina').value);
     // visina = parseInt(document.getElementById('visina').value);
-    visina = 10;
-    sirina = 10;
     var igra = document.getElementById('igra');
     igra.innerHTML = '';
     var visinaIgre = igra.clientHeight;
     var sirinaIgre = igra.clientWidth;
     var sirinaPolja = sirinaIgre / sirina;
     var visinaPolja = visinaIgre / visina;
-    event.preventDefault();
-    if (!visina || !sirina){    //Proveravamo da li su uneti sirina i visina
-        alert('Unesite visinu i sirinu!')
-    }
-    if(visina > 20 || sirina > 20 ){    //Proveravamo unete vrednosti, ako su vece od 20, alert NO!
-        alert('Visina i sirina moraju da budu maximalno 20.');
-    }
-    else if(visina < 5 || sirina < 5){     //Proveravamo unete vrednosti, ako su manje od 5, alert NO!
-        alert('Visina i sirina moraju da budu vece od 5.')
-    }
-    else {
+
+
         //napravi div za svako polje od 1 do visina*sirna +1
-        for( i = 1; i < visina*sirina +1; i++){
+        for( i = 1; i <= visina*sirina ; i++){
             var child = document.createElement('div'); //kreiramo div
             var text = document.createTextNode(i); //pravimo ispisanu brojnu vrednost
             child.appendChild(text); //dodajemo text na div
-            child.setAttribute('class', 'polje'); 
+            child.setAttribute('class', 'polje');
             child.setAttribute('id', i)
             child.style.width = sirinaPolja + 'px';
             child.style.height = visinaPolja + 'px';
-            child.style.lineHeight = visinaPolja+'px';
+            child.style.lineHeight = visinaPolja+'px';//centriranje teksta
             child.addEventListener('click', addSelector)
-            igra.appendChild(child)
-        }
+            igra.appendChild(child);
     }
 });
-
+//funkcije -> da li je klik u izbori1 ili izbori2 - sve u izbori -> jer ce biti i izbori3
 function addSelector(){
     if(select != null){ //u slucaju da smo selectovali neki element proslim klikom, tu vrednost prebacujemo u lastClick variablu
         lastClick = select;
@@ -188,7 +176,7 @@ function addSelector(){
         alert('already selected')
     }
 }
-
+//proveri da li je na nekoj poziciji brod
 function checkPosition(position){
     var m = brodovi.length;
     while (m-- > -1){

@@ -121,6 +121,7 @@ function addSelector(){
         }
         else if(checkPosition(select)){
             alert('click')
+            console.log(brodovi)
             if(lastClick != null && checkPosition(lastClick)){
                 document.getElementById(lastClick).style.backgroundColor = '#fff';
             }

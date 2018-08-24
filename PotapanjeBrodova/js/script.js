@@ -8,6 +8,7 @@ var ships = new array(100);
 const width = 10;
 const height = 10;
 
+//dodaj komentar na pocetku - objasnjenje
 function Klik(e)
 {
     console.log(brodovi)

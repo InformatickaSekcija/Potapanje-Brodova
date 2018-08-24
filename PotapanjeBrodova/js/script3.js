@@ -1,6 +1,6 @@
 var brodovi = [];//glavni niz
-var visina = 10;
-var sirina = 10;
+const visina = 10;
+const sirina = 10;
 var select = null;//trenutno selektovano polje
 var lastClick = null;//prethodno selektovano polje
 var izbori = [];//bliži prsten susednih(4) polja
